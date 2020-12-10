@@ -18,7 +18,8 @@ module.exports.run = async (client, message, args, blue) => {
   num = makeid(5);
   var limit = 1024 * 1024 * 250;
   var videoID = args[0];
-
+  let validate = ytdl.validateURL(args[0])
+  if(validate === false) return message.reply("That is an invalid URL!")
 ytdl.getInfo(videoID).then((info) => {
   var formats = info.formats.slice();
     var format = formats.shift();
