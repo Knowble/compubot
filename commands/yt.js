@@ -46,6 +46,8 @@ ytdl.getInfo(videoID).then((info) => {
 });
   return
   }  else if (args[0] === 'mp3') {
+    let validate = ytdl.validateURL(args[1])
+    if(validate === false) return message.reply("That is an invalid URL!")
     let vido = ytdl.getURLVideoID(args[1])
     await ytdl.getBasicInfo(vido).then(info => {
     blue.setFooter(`Requested by ${message.author.username}`, message.author.avatarURL());
@@ -59,6 +61,7 @@ ytdl.getInfo(videoID).then((info) => {
     });
     return
   } 
+  message.channel.send(blue.setDescription("Invalid format\n``>>yt {mp3|mp4} {URL}``"))
 }
 //name this whatever the command name is.
 module.exports.help = {
