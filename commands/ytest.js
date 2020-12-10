@@ -26,7 +26,6 @@ ytdl.getInfo(videoID).then((info) => {
     parsed.method = 'HEAD'; // We only want headers to get the filesize
     https.request(parsed, (response) => {
       if (parseInt(response.headers['content-length']) <= limit) {
-        console.log(parseInt(response.headers['content-length']));
         blue.setFooter(`Requested by ${message.author.username}`, message.author.avatarURL());
         blue.setTimestamp()
         blue.setDescription(`**${info.player_response.videoDetails.title}** requested by <@${message.author.id}>\nI will DM you when the files are ready!`)
@@ -36,7 +35,6 @@ ytdl.getInfo(videoID).then((info) => {
           .pipe(fs.createWriteStream(output)).on("finish", function() {
             message.author.send(blue.setDescription(`Here is your file!\nhttps://betterverify.xyz/assets/cdn/${num}.mp4\n\nThis link will expire in 5 minutes.`))});
       } else {
-        console.log(parseInt(response.headers['content-length']));
         message.reply("Maximum of 300MB!").then(m => m.delete({ timeout: 2000 }))
       }
     }).end();
